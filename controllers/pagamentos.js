@@ -11,7 +11,10 @@ module.exports = (app) => {
         let params = req.body;
         console.log(params);
 
-        res.send('Ok\n');
+        params.status = 'CRIADO';
+        params.date = new Date();
+
+        res.send(params);
     });
 
 }
