@@ -10,6 +10,7 @@ app.use( bodyParser.json() );
 
 consign()
     .include('controllers')
+    .then('persistencia')
     .into(app);
 
 module.exports = () => {

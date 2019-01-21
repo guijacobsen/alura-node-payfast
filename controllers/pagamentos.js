@@ -12,9 +12,20 @@ module.exports = (app) => {
         console.log(params);
 
         params.status = 'CRIADO';
-        params.date = new Date();
+        params.data = new Date();
 
-        res.send(params);
+        let conn = app.persistencia.connectionFactory();
+        let pagamentoDao = new app.persistencia.PagamentoDao(conn);
+
+        pagamentoDao.salva(params, (erro, result) => {
+            console.log('-- salva --');
+            console.log('erro', erro);
+            console.log('result', result);
+            // res.json(params);
+            res.send(params);
+        });
+
+        // res.send(params);
     });
 
 }
