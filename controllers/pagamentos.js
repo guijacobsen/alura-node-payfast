@@ -51,4 +51,10 @@ module.exports = (app) => {
         // res.send(params);
     });
 
+    app.put('/pagamentos/pagamento/:id', (req, res) => {
+
+        const id = req.params.id;
+
+    });
+
 }
