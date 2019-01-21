@@ -40,10 +40,11 @@ module.exports = (app) => {
             console.log('-- salva --');
             if( erro ) {
                 console.log('erro ao inserir : ' + erro);
-                res.status(400).send(erro);
+                res.status(500).send(erro);
             } else {
                 console.log('result', result);
-                res.json(params);
+                res.location(`/pagamentos/pagamento/${result.insertId}`);
+                res.status(201).json(params);
             }
         });
 
