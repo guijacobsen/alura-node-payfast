@@ -19,10 +19,13 @@ module.exports = (app) => {
 
         pagamentoDao.salva(params, (erro, result) => {
             console.log('-- salva --');
-            console.log('erro', erro);
-            console.log('result', result);
-            // res.json(params);
-            res.send(params);
+            if( erro ) {
+                console.log('erro ao inserir : ' + erro);
+                res.status(400).send(erro);
+            } else {
+                console.log('result', result);
+                res.json(params);
+            }
         });
 
         // res.send(params);
