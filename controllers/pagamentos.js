@@ -8,6 +8,25 @@ module.exports = (app) => {
 
     app.post('/pagamentos/pagamento', (req, res) => {
         console.log('Request url: /pagamentos/pagamento -- method: post');
+
+        req.assert(
+            "forma_de_pagamento",
+            "Forma de pagamento obrigatorio"
+        ).notEmpty();
+        
+        req.assert(
+            "valor",
+            "Valor obrigatorio e deve ser decimal"
+        ).notEmpty().isFloat();
+
+        let errors = req.validationErrors();
+
+        if( errors ) {
+            console.log('Erros de validacao encontrados');
+            res.status(400).send(errors);
+            return;
+        }
+
         let params = req.body;
         console.log(params);
 
