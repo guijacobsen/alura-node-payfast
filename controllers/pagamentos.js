@@ -84,8 +84,25 @@ module.exports = (app) => {
                 res.status(500).send(erro);
             } else {
                 console.log('result', result);
-                res.location(`/pagamentos/pagamento/${result.insertId}`);
-                res.status(201).json(params);
+                params.id = result.insertId;
+                const response = {
+                    dados_do_pagamento: params,
+                    links: [
+                        {
+                            href: `http://localhost:3001/pagamentos/pagamento/${params.id}`,
+                            rel: 'confirmar',
+                            method: 'PUT'
+                        },
+                        {
+                            href: `http://localhost:3001/pagamentos/pagamento/${params.id}`,
+                            rel: 'cancelar',
+                            method: 'DELETE'
+                        }
+                    ]
+                };
+
+                res.location(`/pagamentos/pagamento/${params.id}`);
+                res.status(201).json(response);
             }
         });
 
@@ -111,6 +128,27 @@ module.exports = (app) => {
             res.send(params);
         });
 
+    });
+
+    app.delete('/pagamentos/pagamento/:id', (req, res) => {
+        const id = req.params.id;
+
+        const conn = app.persistencia.connectionFactory();
+        const pagamentoDao = new app.persistencia.PagamentoDao(conn);
+
+        let params = { id: id, status: 'CANCELADO' };
+
+        pagamentoDao.atualiza(params, (erro, result) => {
+            console.log('pagamentoDao.atualiza');
+            console.log('erro : ', erro);
+            console.log('result : ', result);
+
+            if( erro ) {
+                res.status(500).send(erro);
+                return;
+            }
+            res.status(204).send(params);
+        });
     });
 
 }
