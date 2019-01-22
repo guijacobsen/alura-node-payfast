@@ -3,7 +3,48 @@ module.exports = (app) => {
     
     app.get('/pagamentos', (req, res) => {
         console.log('Request url: /pagamentos');
-        res.send('pagamentos');
+
+        const conn = app.persistencia.connectionFactory();
+        const pagamentoDao = new app.persistencia.PagamentoDao(conn);
+
+        pagamentoDao.getAll((erro, result) => {
+            console.log('pagamentoDao.getAll');
+            // console.log('erro : ', erro);
+            // console.log('result : ', result);
+            if( erro ) {
+                res.send('erro : ' + erro);
+            } else {
+                let html = `
+                    <table border="1" cellpadding="5" cellspacing="0">
+                        <tr>
+                            <td>id</td>
+                            <td>descricao</td>
+                            <td>valor</td>
+                            <td>moeda</td>
+                            <td>forma_de_pagamento</td>
+                            <td>status</td>
+                            <td>data</td>
+                        </tr>
+                `;
+                result.map(i => {
+                    html += `
+                        <tr>
+                            <td>${i.id}</td>
+                            <td>${i.descricao}</td>
+                            <td>${i.valor}</td>
+                            <td>${i.moeda}</td>
+                            <td>${i.forma_de_pagamento}</td>
+                            <td>${i.status}</td>
+                            <td>${i.data}</td>
+                        </tr>
+                    `
+                });
+                html += '</table>';
+                res.send(html);
+            }
+        });
+
+        // res.send('pagamentos');
     });
 
     app.post('/pagamentos/pagamento', (req, res) => {
@@ -52,8 +93,23 @@ module.exports = (app) => {
     });
 
     app.put('/pagamentos/pagamento/:id', (req, res) => {
-
         const id = req.params.id;
+        const conn = app.persistencia.connectionFactory();
+        const pagamentoDao = new app.persistencia.PagamentoDao(conn);
+
+        let params = { id: id, status: 'CONFIRMADO' };
+
+        pagamentoDao.atualiza(params, (erro, result) => {
+            console.log('pagamentoDao.atualiza');
+            console.log('erro : ', erro);
+            console.log('result : ', result);
+
+            if( erro ) {
+                res.status(500).send(erro);
+                return;
+            }
+            res.send(params);
+        });
 
     });
 
