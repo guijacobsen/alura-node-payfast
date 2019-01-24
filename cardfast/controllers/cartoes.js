@@ -12,7 +12,7 @@ module.exports = (app) => {
         req.assert('bandeira', 'Bandeira é obrigatória').notEmpty();
         req.assert('ano_de_expiracao', 'Ano é obrigatório e deve ter 4 dígitos').notEmpty().len(4,4);
         req.assert('mes_de_expiracao', 'Mês é obrigatório e deve ter 2 dígitos').notEmpty().len(2,2);
-        req.assert('cvv', 'CVV é obrigatório e deve ter 3 dígitos').notEmpty().len(2,2);
+        req.assert('cvv', 'CVV é obrigatório e deve ter 3 dígitos').notEmpty().len(3,3);
 
         const erros = req.validationErrors();
         if( erros ) {

@@ -1,7 +1,7 @@
 {
-    "numero": "visa"
-    "bandeira": "visa"
-    "ano_de_expiracao": "visa"
-    "mes_de_expiracao": "visa"
-    "cvv": "visa"
+    "numero": "1234123412341234",
+    "bandeira": "visa",
+    "ano_de_expiracao": "2021",
+    "mes_de_expiracao": "12",
+    "cvv": "123"
 }
