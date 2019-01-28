@@ -1,6 +1,6 @@
-const restify = require('restify');
+const restify = require('restify-clients');
 
-let cliente = restify.createServer({
+let cliente = restify.createJsonClient({
     url: 'http://localhost:3000'
 });
 
