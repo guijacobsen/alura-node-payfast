@@ -51,12 +51,12 @@ module.exports = (app) => {
         console.log('Request url: /pagamentos/pagamento -- method: post');
 
         req.assert(
-            "forma_de_pagamento",
+            "pagamento.forma_de_pagamento",
             "Forma de pagamento obrigatorio"
         ).notEmpty();
         
         req.assert(
-            "valor",
+            "pagamento.valor",
             "Valor obrigatorio e deve ser decimal"
         ).notEmpty().isFloat();
 
@@ -68,7 +68,8 @@ module.exports = (app) => {
             return;
         }
 
-        let params = req.body;
+        // let params = req.body.pagamento;
+        let params = req.body['pagamento'];
         console.log(params);
 
         params.status = 'CRIADO';
@@ -85,6 +86,17 @@ module.exports = (app) => {
             } else {
                 console.log('result', result);
                 params.id = result.insertId;
+
+                if( params.forma_de_pagamento == 'cartao' ) {
+                    var cartao = req.body['cartao'];
+                    console.log('cartao :: ', cartao);
+
+                    clienteCartoes.autoriza(cartao);
+
+                    res.status(201).json(cartao);
+                    return;
+                }
+
                 const response = {
                     dados_do_pagamento: params,
                     links: [
