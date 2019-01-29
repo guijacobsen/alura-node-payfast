@@ -91,30 +91,37 @@ module.exports = (app) => {
                     var cartao = req.body['cartao'];
                     console.log('cartao :: ', cartao);
 
-                    clienteCartoes.autoriza(cartao);
+                    var clienteCartoes = new app.servicos.clienteCartoes();
+
+                    clienteCartoes.autoriza(cartao, (error, request, response, retorno) => {
+                        
+                    });
 
                     res.status(201).json(cartao);
                     return;
+                } else {
+                    
+                    const response = {
+                        dados_do_pagamento: params,
+                        links: [
+                            {
+                                href: `http://localhost:3001/pagamentos/pagamento/${params.id}`,
+                                rel: 'confirmar',
+                                method: 'PUT'
+                            },
+                            {
+                                href: `http://localhost:3001/pagamentos/pagamento/${params.id}`,
+                                rel: 'cancelar',
+                                method: 'DELETE'
+                            }
+                        ]
+                    };
+    
+                    res.location(`/pagamentos/pagamento/${params.id}`);
+                    res.status(201).json(response);
+
                 }
 
-                const response = {
-                    dados_do_pagamento: params,
-                    links: [
-                        {
-                            href: `http://localhost:3001/pagamentos/pagamento/${params.id}`,
-                            rel: 'confirmar',
-                            method: 'PUT'
-                        },
-                        {
-                            href: `http://localhost:3001/pagamentos/pagamento/${params.id}`,
-                            rel: 'cancelar',
-                            method: 'DELETE'
-                        }
-                    ]
-                };
-
-                res.location(`/pagamentos/pagamento/${params.id}`);
-                res.status(201).json(response);
             }
         });
 

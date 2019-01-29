@@ -12,6 +12,7 @@ app.use( expressValidator() );
 consign()
     .include('controllers')
     .then('persistencia')
+    .then('servicos')
     .into(app);
 
 module.exports = () => {
