@@ -94,11 +94,17 @@ module.exports = (app) => {
                     var clienteCartoes = new app.servicos.clienteCartoes();
 
                     clienteCartoes.autoriza(cartao, (error, request, response, retorno) => {
-                        
+                        console.log('-- clienteCartoes.autoriza --');
+                        console.log('error : ', error);
+                        // console.log('request : ', request);
+                        // console.log('response : ', response);
+                        console.log('retorno : ', retorno);
+
+                        res.status(201).json(retorno);
                     });
 
-                    res.status(201).json(cartao);
-                    return;
+                    // res.status(201).json(cartao);
+                    // return;
                 } else {
                     
                     const response = {
