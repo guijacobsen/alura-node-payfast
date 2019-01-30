@@ -87,18 +87,48 @@ module.exports = (app) => {
                 console.log('result', result);
                 params.id = result.insertId;
 
+                let response;
+
                 if( params.forma_de_pagamento == 'cartao' ) {
                     var cartao = req.body['cartao'];
                     console.log('cartao :: ', cartao);
 
                     var clienteCartoes = new app.servicos.clienteCartoes();
 
-                    clienteCartoes.autoriza(cartao, (error, request, response, retorno) => {
+                    clienteCartoes.autoriza(cartao, (exception, request, response, retorno) => {
                         console.log('-- clienteCartoes.autoriza --');
-                        console.log('error : ', error);
+                        if( exception ) {
+                            console.log('exception : ', exception);
+                            res.status(400).send(exception['message']);
+                            // res.status(400).json(exception);
+                            // res.status(400).send(JSON.stringify(error));
+                            return;
+                        }
                         // console.log('request : ', request);
                         // console.log('response : ', response);
                         console.log('retorno : ', retorno);
+
+
+
+                        response = {
+                            dados_do_pagamento: params,
+                            links: [
+                                {
+                                    href: `http://localhost:3001/pagamentos/pagamento/${params.id}`,
+                                    rel: 'confirmar',
+                                    method: 'PUT'
+                                },
+                                {
+                                    href: `http://localhost:3001/pagamentos/pagamento/${params.id}`,
+                                    rel: 'cancelar',
+                                    method: 'DELETE'
+                                }
+                            ]
+                        };
+        
+                        res.location(`/pagamentos/pagamento/${params.id}`);
+                        // res.status(201).json(response);
+
 
                         res.status(201).json(retorno);
                     });
@@ -107,7 +137,7 @@ module.exports = (app) => {
                     // return;
                 } else {
                     
-                    const response = {
+                    response = {
                         dados_do_pagamento: params,
                         links: [
                             {
