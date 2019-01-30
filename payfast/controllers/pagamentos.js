@@ -112,6 +112,7 @@ module.exports = (app) => {
 
                         response = {
                             dados_do_pagamento: params,
+                            cartao: retorno,
                             links: [
                                 {
                                     href: `http://localhost:3001/pagamentos/pagamento/${params.id}`,
@@ -127,10 +128,10 @@ module.exports = (app) => {
                         };
         
                         res.location(`/pagamentos/pagamento/${params.id}`);
-                        // res.status(201).json(response);
+                        res.status(201).json(response);
 
 
-                        res.status(201).json(retorno);
+                        // res.status(201).json(retorno);
                     });
 
                     // res.status(201).json(cartao);
