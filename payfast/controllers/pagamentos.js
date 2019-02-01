@@ -49,19 +49,32 @@ module.exports = (app) => {
         var id = req.params.id;
         console.log(`consultando pagamendo: ${id}`);
 
+        var memcachedClient = app.servicos.memcachedClient();
 
-        var conn = app.persistencia.connectionFactory();
-        var pagamentoDao = new app.persistencia.PagamentoDao(conn);
+        memcachedClient.get(`pagamento-${id}`, (error, retorno) => {
+            if( error || !retorno ) {
+                console.log('MISS - chave nao encontrada');
 
-        pagamentoDao.buscaPorId(id, (erro, result) => {
-            if( erro ) {
-                console.log('erro buscaPorId: ', erro);
-                res.status(500).send(erro);
-                return;
+                var conn = app.persistencia.connectionFactory();
+                var pagamentoDao = new app.persistencia.PagamentoDao(conn);
+        
+                pagamentoDao.buscaPorId(id, (erro, result) => {
+                    if( erro ) {
+                        console.log('erro buscaPorId: ', erro);
+                        res.status(500).send(erro);
+                        return;
+                    }
+                    console.log('buscaPorId sucesso', result);
+                    res.json(result);
+                });
+
+            } else {
+                console.log('HIT - valor: ', retorno);
+                res.json(retorno);
             }
-            console.log('buscaPorId sucesso', result);
-            res.json(result);
         });
+
+
 
         
     });
@@ -105,6 +118,11 @@ module.exports = (app) => {
             } else {
                 console.log('result', result);
                 params.id = result.insertId;
+
+                var memcachedClient = app.servicos.memcachedClient();
+                memcachedClient.set(`pagamento-${params.id}`, params, 60000, erro => {
+                    console.log(`nova chave adicionada ao cache: pagamento-${params.id}`);
+                })
 
                 let response;
 
