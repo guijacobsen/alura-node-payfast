@@ -6,7 +6,7 @@ createDBConnection = () => {
         user: 'root',
         password: 'j0nas',
         database: 'payfast',
-        // port: 3306,
+        port: 3307,
         // insecureAuth: true
     });
 }
