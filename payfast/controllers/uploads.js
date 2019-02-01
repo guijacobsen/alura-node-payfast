@@ -3,7 +3,9 @@ var fs = require('fs');
 module.exports = (app) => {
 
     /** 
-     *
+     *@header Content-type: application/octet-stream
+     *@header filename
+     *@type binary
     **/
     
     app.post('/upload/imagem', (req, res) => {

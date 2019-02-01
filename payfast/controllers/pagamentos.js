@@ -9,8 +9,6 @@ module.exports = (app) => {
 
         pagamentoDao.getAll((erro, result) => {
             console.log('pagamentoDao.getAll');
-            // console.log('erro : ', erro);
-            // console.log('result : ', result);
             if( erro ) {
                 res.send('erro : ' + erro);
             } else {
@@ -45,6 +43,27 @@ module.exports = (app) => {
         });
 
         // res.send('pagamentos');
+    });
+
+    app.get('/pagamentos/pagamento/:id', (req, res) => {
+        var id = req.params.id;
+        console.log(`consultando pagamendo: ${id}`);
+
+
+        var conn = app.persistencia.connectionFactory();
+        var pagamentoDao = new app.persistencia.PagamentoDao(conn);
+
+        pagamentoDao.buscaPorId(id, (erro, result) => {
+            if( erro ) {
+                console.log('erro buscaPorId: ', erro);
+                res.status(500).send(erro);
+                return;
+            }
+            console.log('buscaPorId sucesso', result);
+            res.json(result);
+        });
+
+        
     });
 
     app.post('/pagamentos/pagamento', (req, res) => {
