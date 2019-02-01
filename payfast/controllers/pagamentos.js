@@ -9,8 +9,6 @@ module.exports = (app) => {
 
         pagamentoDao.getAll((erro, result) => {
             console.log('pagamentoDao.getAll');
-            // console.log('erro : ', erro);
-            // console.log('result : ', result);
             if( erro ) {
                 res.send('erro : ' + erro);
             } else {
@@ -45,6 +43,40 @@ module.exports = (app) => {
         });
 
         // res.send('pagamentos');
+    });
+
+    app.get('/pagamentos/pagamento/:id', (req, res) => {
+        var id = req.params.id;
+        console.log(`consultando pagamendo: ${id}`);
+
+        var memcachedClient = app.servicos.memcachedClient();
+
+        memcachedClient.get(`pagamento-${id}`, (error, retorno) => {
+            if( error || !retorno ) {
+                console.log('MISS - chave nao encontrada');
+
+                var conn = app.persistencia.connectionFactory();
+                var pagamentoDao = new app.persistencia.PagamentoDao(conn);
+        
+                pagamentoDao.buscaPorId(id, (erro, result) => {
+                    if( erro ) {
+                        console.log('erro buscaPorId: ', erro);
+                        res.status(500).send(erro);
+                        return;
+                    }
+                    console.log('buscaPorId sucesso', result);
+                    res.json(result);
+                });
+
+            } else {
+                console.log('HIT - valor: ', retorno);
+                res.json(retorno);
+            }
+        });
+
+
+
+        
     });
 
     app.post('/pagamentos/pagamento', (req, res) => {
@@ -87,21 +119,63 @@ module.exports = (app) => {
                 console.log('result', result);
                 params.id = result.insertId;
 
+                var memcachedClient = app.servicos.memcachedClient();
+                memcachedClient.set(`pagamento-${params.id}`, params, 60000, erro => {
+                    console.log(`nova chave adicionada ao cache: pagamento-${params.id}`);
+                })
+
+                let response;
+
                 if( params.forma_de_pagamento == 'cartao' ) {
                     var cartao = req.body['cartao'];
                     console.log('cartao :: ', cartao);
 
                     var clienteCartoes = new app.servicos.clienteCartoes();
 
-                    clienteCartoes.autoriza(cartao, (error, request, response, retorno) => {
-                        
+                    clienteCartoes.autoriza(cartao, (exception, request, response, retorno) => {
+                        console.log('-- clienteCartoes.autoriza --');
+                        if( exception ) {
+                            console.log('exception : ', exception);
+                            res.status(400).send(exception['message']);
+                            // res.status(400).json(exception);
+                            // res.status(400).send(JSON.stringify(error));
+                            return;
+                        }
+                        // console.log('request : ', request);
+                        // console.log('response : ', response);
+                        console.log('retorno : ', retorno);
+
+
+
+                        response = {
+                            dados_do_pagamento: params,
+                            cartao: retorno,
+                            links: [
+                                {
+                                    href: `http://localhost:3001/pagamentos/pagamento/${params.id}`,
+                                    rel: 'confirmar',
+                                    method: 'PUT'
+                                },
+                                {
+                                    href: `http://localhost:3001/pagamentos/pagamento/${params.id}`,
+                                    rel: 'cancelar',
+                                    method: 'DELETE'
+                                }
+                            ]
+                        };
+        
+                        res.location(`/pagamentos/pagamento/${params.id}`);
+                        res.status(201).json(response);
+
+
+                        // res.status(201).json(retorno);
                     });
 
-                    res.status(201).json(cartao);
-                    return;
+                    // res.status(201).json(cartao);
+                    // return;
                 } else {
                     
-                    const response = {
+                    response = {
                         dados_do_pagamento: params,
                         links: [
                             {
