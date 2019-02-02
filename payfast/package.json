@@ -21,6 +21,7 @@
     "express": "4.16.4",
     "express-validator": "5.3.1",
     "memcached": "2.2.2",
+    "morgan": "^1.9.1",
     "mysql": "2.16.0",
     "restify": "4.1.1",
     "restify-clients": "2.6.4",

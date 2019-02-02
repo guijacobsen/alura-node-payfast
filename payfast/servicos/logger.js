@@ -19,7 +19,7 @@ module.exports = winston.createLogger({
             maxFiles: 10,
             format: formatL.combine(
                 formatL.timestamp({
-                    format: 'YYYY-MM-DD HH:mm:ss'
+                    format: 'DD/MM/YYYY HH:mm:ss'
                 }),
                 formatL.json()
             )

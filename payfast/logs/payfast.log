@@ -1,9 +1,6 @@
-{"message":"Consultando pagamento 22","level":"info"}
-{"message":"Consultando pagamento 13","level":"info"}
-{"message":"Consultando pagamento 4","level":"info"}
-{"message":"Consultando pagamento 4","level":"info"}
-{"message":"Consultando pagamento 4","level":"info"}
-undefined
-undefined
-{"message":"Consultando pagamento 4","level":"info"}
-{"message":"Consultando pagamento 4","level":"info","timestamp":"2019-02-01 23:37:21"}
+{"message":"::1 - - [02/Feb/2019:02:45:05 +0000] \"GET /pagamentos/pagamento/4 HTTP/1.1\" 304 -\n","level":"info","timestamp":"02/02/2019 00:45:05"}
+{"message":"::1 - - [02/Feb/2019:02:45:15 +0000] \"GET /pagamentos HTTP/1.1\" 304 -\n","level":"info","timestamp":"02/02/2019 00:45:15"}
+{"message":"::1 - - [02/Feb/2019:02:56:03 +0000] \"GET /pagamentos/pagamento/4 HTTP/1.1\" 304 -\n","level":"info","timestamp":"02/02/2019 00:56:03"}
+{"message":"::1 - - [02/Feb/2019:02:56:59 +0000] \"GET /pagamentos HTTP/1.1\" 304 -\n","level":"info","timestamp":"02/02/2019 00:56:59"}
+{"message":"::1 - - [02/Feb/2019:03:01:28 +0000] \"GET /pagamentos HTTP/1.1\" 304 -\n","level":"info","timestamp":"02/02/2019 01:01:28"}
+{"message":"::1 - - [02/Feb/2019:03:02:26 +0000] \"GET /pagamentos HTTP/1.1\" 304 -\n","level":"info","timestamp":"02/02/2019 01:02:26"}

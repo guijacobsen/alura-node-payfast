@@ -48,8 +48,10 @@ module.exports = (app) => {
 
     app.get('/pagamentos/pagamento/:id', (req, res) => {
         var id = req.params.id;
-        console.log(`consultando pagamendo: ${id}`);
-        logger.info(`Consultando pagamento ${id}`);
+        // console.log(`consultando pagamendo: ${id}`);
+        // logger.info(`----------------------------`);
+        // logger.info(`Consultando pagamento ${id}`);
+        // logger.info(`----------------------------`);
 
         var memcachedClient = app.servicos.memcachedClient();
 
