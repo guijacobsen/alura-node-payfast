@@ -2,7 +2,7 @@ var winston = require('winston');
 
 // var logger = new winston.Logger({
 
-var logger = winston.createLogger({
+module.exports = winston.createLogger({
     // format: winston.format.json(),
     // level: 'info',
     // format: winston.format.json(),
@@ -15,7 +15,3 @@ var logger = winston.createLogger({
         })
     ]
 });
-
-// logger.log('Log utilizando o winston');
-logger.log('info', 'Log especificando o nivel');
-logger.info('Logger utilizando logger.info()');

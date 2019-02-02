@@ -1,2 +1,5 @@
-{"level":"info","message":"Log especificando o nivel"}
-{"message":"Logger utilizando logger.info()","level":"info"}
+{"message":"Consultando pagamento 22","level":"info"}
+{"message":"Consultando pagamento 13","level":"info"}
+{"message":"Consultando pagamento 4","level":"info"}
+{"message":"Consultando pagamento 4","level":"info"}
+{"message":"Consultando pagamento 4","level":"info"}
