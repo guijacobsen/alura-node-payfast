@@ -1,0 +1,8 @@
+{"message":"::ffff:127.0.0.1 - - [02/Feb/2019:16:14:29 +0000] \"GET /pagamentos HTTP/1.1\" 200 10488\n","level":"info","timestamp":"02/02/2019 14:14:29"}
+{"message":"::ffff:127.0.0.1 - - [02/Feb/2019:16:14:32 +0000] \"GET /pagamentos/pagamento/4 HTTP/1.1\" 200 155\n","level":"info","timestamp":"02/02/2019 14:14:32"}
+{"message":"::ffff:127.0.0.1 - - [02/Feb/2019:16:14:33 +0000] \"GET / HTTP/1.1\" 304 -\n","level":"info","timestamp":"02/02/2019 14:14:33"}
+{"message":"::1 - - [02/Feb/2019:16:14:57 +0000] \"GET / HTTP/1.1\" 304 -\n","level":"info","timestamp":"02/02/2019 14:14:57"}
+{"message":"::1 - - [02/Feb/2019:16:14:58 +0000] \"GET /pagamentos/pagamento/4 HTTP/1.1\" 304 -\n","level":"info","timestamp":"02/02/2019 14:14:58"}
+{"message":"::1 - - [02/Feb/2019:16:15:02 +0000] \"GET /pagamentos HTTP/1.1\" 304 -\n","level":"info","timestamp":"02/02/2019 14:15:02"}
+{"message":"::1 - - [02/Feb/2019:16:15:25 +0000] \"GET /pagamentos/pagamento/4 HTTP/1.1\" 200 155\n","level":"info","timestamp":"02/02/2019 14:15:25"}
+{"message":"::1 - - [02/Feb/2019:16:15:47 +0000] \"GET /pagamentos/pagamento/6 HTTP/1.1\" 200 155\n","level":"info","timestamp":"02/02/2019 14:15:47"}

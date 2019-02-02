@@ -40,6 +40,9 @@ app.use( bodyParser.urlencoded({ extended:true }) );
 app.use( bodyParser.json() );
 app.use( expressValidator() );
 
+console.log('process.cwd() :: ', process.cwd());
+
+// consign({cwd: process.cwd()})
 consign()
     .include('controllers')
     .then('persistencia')

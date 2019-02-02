@@ -1,0 +1,7 @@
+{"message":"::1 - - [02/Feb/2019:15:03:21 +0000] \"GET /pagamentos/pagamento/4 HTTP/1.1\" 404 161\n","level":"info","timestamp":"02/02/2019 13:03:21"}
+{"message":"::1 - - [02/Feb/2019:15:03:23 +0000] \"GET /pagamentos HTTP/1.1\" 404 149\n","level":"info","timestamp":"02/02/2019 13:03:23"}
+{"message":"::1 - - [02/Feb/2019:15:07:22 +0000] \"GET /pagamentos/pagamento/4 HTTP/1.1\" 404 161\n","level":"info","timestamp":"02/02/2019 13:07:22"}
+{"message":"::1 - - [02/Feb/2019:15:07:24 +0000] \"GET /pagamentos HTTP/1.1\" 404 149\n","level":"info","timestamp":"02/02/2019 13:07:24"}
+{"message":"::1 - - [02/Feb/2019:15:07:53 +0000] \"GET /pagamentos/pagamento/4 HTTP/1.1\" 404 161\n","level":"info","timestamp":"02/02/2019 13:07:53"}
+{"message":"::ffff:127.0.0.1 - - [02/Feb/2019:15:12:49 +0000] \"GET /pagamentos HTTP/1.1\" 404 149\n","level":"info","timestamp":"02/02/2019 13:12:49"}
+{"message":"::ffff:127.0.0.1 - - [02/Feb/2019:15:16:11 +0000] \"GET /pagamentos HTTP/1.1\" 404 149\n","level":"info","timestamp":"02/02/2019 13:16:11"}
