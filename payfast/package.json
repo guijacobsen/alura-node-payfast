@@ -24,7 +24,8 @@
     "mysql": "2.16.0",
     "restify": "4.1.1",
     "restify-clients": "2.6.4",
-    "soap": "^0.25.0"
+    "soap": "^0.25.0",
+    "winston": "^3.2.1"
   },
   "devDependencies": {
     "nodemon": "1.18.9"

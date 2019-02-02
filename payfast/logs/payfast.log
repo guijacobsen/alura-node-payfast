@@ -1,0 +1,2 @@
+{"level":"info","message":"Log especificando o nivel"}
+{"message":"Logger utilizando logger.info()","level":"info"}
